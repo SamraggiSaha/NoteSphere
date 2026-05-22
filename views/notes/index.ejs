@@ -1,0 +1,20 @@
+<% layout("/layouts/boilerplate") %> 
+<h1 class="text-center mb-4">
+   All Notes
+</h1>
+<div class="row">
+<% for(let note of notes) { %>
+    <div class="col-md-4 mb-4">
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title"><%= note.title %> </h5>
+    <p class="card-text"><%= note.content %></p>
+    <a href="/notes/<%= note._id %>/edit" class="btn btn-warning">Edit</a>
+   <form action="/notes/<%= note._id %>/?_method = DELETE" method="post" class="d-inline">
+    <button class="btn btn-danger" type="submit">Delete</button>
+   </form>
+  </div>
+</div>
+</div>
+<% } %>
+</div>

@@ -26,12 +26,13 @@ app.get("/",(req,res)=>{
 // Index(Home page)route 
 app.get("/notes", async(req,res)=>{
     const allNotes = await Note.find({});
-    res.render("index.ejs",{allNotes});
+    console.log(allNotes);
+    res.render("notes/index.ejs",{notes: allNotes});
 });
 
 //Add note
 app.get("/notes/add",(req,res)=>{
-    res.render("add.ejs");
+    res.render("notes/add.ejs");
 });
 
 //Create note 
@@ -46,7 +47,7 @@ app.post("/notes", async(req,res)=>{
 app.get("/notes/:id/edit", async(req,res)=>{
     let {id} = req.params;
     const note = await Note.findById(id);
-    res.render("edit.ejs",{note});
+    res.render("notes/edit.ejs",{note});
 });
 //update note 
 app.put("/notes/:id", async(req,res)=>{
