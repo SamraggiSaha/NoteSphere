@@ -5,6 +5,7 @@ const Note = require('./models/notemodel.js');
 const engine = require("ejs-mate");
 app.engine("ejs", engine);
 app.set("view engine", "ejs");
+const methodOverride = require("method-override");
 
 
 main().then(()=>{
@@ -17,6 +18,7 @@ async function main(){
     await mongoose.connect("mongodb://127.0.0.1:27017/notesphere");
 };
 app.use(express.urlencoded({extended:true}));
+app.use(methodOverride("_method"));
 
 
 app.get("/",(req,res)=>{
@@ -37,7 +39,7 @@ app.get("/notes/add",(req,res)=>{
 
 //Create note 
 app.post("/notes", async(req,res)=>{
-    const {title,content} = req.body;
+    const {title,content} = req.body.note;
     const newNote = new Note({title,content});
     await newNote.save();
     res.redirect("/notes");
@@ -53,7 +55,6 @@ app.get("/notes/:id/edit", async(req,res)=>{
 app.put("/notes/:id", async(req,res)=>{
     let {id} = req.params;
     let note = await Note.findByIdAndUpdate(id,{...req.body.note});
-    await note.save();
     res.redirect("/notes");
 });
 

@@ -10,9 +10,11 @@
     <h5 class="card-title"><%= note.title %> </h5>
     <p class="card-text"><%= note.content %></p>
     <a href="/notes/<%= note._id %>/edit" class="btn btn-warning">Edit</a>
-   <form action="/notes/<%= note._id %>/?_method = DELETE" method="post" class="d-inline">
-    <button class="btn btn-danger" type="submit">Delete</button>
-   </form>
+    <form action="/notes/<%= note._id %>?_method=DELETE"
+      method="POST" class="d-inline">
+    <button class="btn btn-danger"
+            type="submit">Delete </button>
+    </form>
   </div>
 </div>
 </div>
